@@ -1,21 +1,96 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Youtobe Clone</title>
+    <title>Youtube Clone</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles/youtobe.css">
+    <link rel="stylesheet" href="styles/general.css">
+    <link rel="stylesheet" href="styles/youtube-sidebar.css">
+    <link rel="stylesheet" href="styles/youtube-header.css">
+    <link rel="stylesheet" href="styles/youtube-video.css">
   </head>
   <body>
 
-    <input class="search-bar"type="text" placeholder="Search">
+    <div class="header">
+      <div class="left-section">
+        <img 
+          class="hamburger-menu"
+          src="images/icons/hamburger-menu.svg"
+        >
+        <img 
+          class="youtobe-logo"
+          src="images/icons/youtube-logo.svg"
+        >
+      </div>
+      <div class="middle-section">
+        <input class="search-bar"type="text" placeholder="Search">
+        <button
+         class="search-button">
+          <img 
+            class="search-icon"
+            src="images/icons/search.svg">
+        </button>
+        <button
+          class="voice-button">
+          <img 
+            class="voice-icon"
+            src="images/icons/voice-search-icon.svg">
+        </button>
+      </div>
+      <div class="right-section">
+        <img 
+          class="upload-icon"
+          src="images/icons/upload.svg">
+        <img 
+          class="youtube-apps-icon"
+          src="images/icons/youtube-apps.svg">
+        <div class="notifications-icon-container">
+          <img 
+          class="notifications-icon"
+          src="images/icons/notifications.svg">
+          <div class="notifications-count">3</div>
+        </div>
+        <img 
+          class="current-user-picture"
+          src="images/profile-pictures/my-channel.jpeg">
+      </div>
+      
+    </div>
+    
+    <div class="sidebar">
+      <div class="sidebar-link">
+        <img src="images/icons/home.svg">
+        <div>Home</div>
+      </div>
+      <div class="sidebar-link">
+        <img src="images/icons/explore.svg">
+        <div>Explore</div>
+      </div>
+      <div class="sidebar-link">
+        <img src="images/icons/subscriptions.svg">
+        <div>Subscriptions</div>
+      </div>
+      <div class="sidebar-link">
+        <img src="images/icons/originals.svg">
+        <div>Originals</div>
+      </div>
+      <div class="sidebar-link">
+        <img src="images/icons/youtube-music.svg">
+        <div>YouTube Music</div>
+      </div>
+      <div class="sidebar-link">
+        <img src="images/icons/library.svg">
+        <div>Library</div>
+      </div>
+    </div>
 
     <div class="video-grid">
 
       <div class="video-preview">
         <div class="thumbnail-container">
           <img class="thumbnail" src="images/thumbnails/thumbnail-1.webp">
+          <div class="video-time">14:20</div>
         </div>
         <div class="video-info-grid">
           <div class="channel-picture-container">
