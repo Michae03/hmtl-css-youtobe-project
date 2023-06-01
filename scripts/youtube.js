@@ -6,8 +6,10 @@ videos.forEach(video => {
 videoGridHTML += `
   <div class="video-preview">
   <div class="thumbnail-container">
-    <img class="thumbnail" src="images/thumbnails/${video.thumbnailLink}">
-    <div class="video-time">${video.filmLenght}</div>
+    <a href="${video.link}">
+     <img class="thumbnail" src="images/thumbnails/${video.thumbnailLink}">
+    </a>
+    <div class="video-time">${video.filmLength}</div>
   </div>
   <div class="video-info-grid">
     <div class="channel-picture-container">
@@ -41,6 +43,7 @@ videoGridHTML += `
 
 document.querySelector('.js-video-grid').innerHTML = videoGridHTML;
 
+
 //DEFINED FUNCTIONS
 
 function roundSubscribers(subscribers) {
@@ -70,7 +73,6 @@ function roundVideoAge(videoUpload) {
 
   const roundDown = (value) => Math.round(value - 0.5);
 
-  console.log(elapsedTime);
 
   if (elapsedTime < 1) {return}
   if (elapsedTime === 1) {return `1 second ago`}

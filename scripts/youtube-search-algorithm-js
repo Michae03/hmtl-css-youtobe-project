@@ -1,0 +1,84 @@
+searchBar = "music";
+searchTable = splitIntoWords(searchBar);
+
+
+const videosEX = [{
+  name: "Otzdurva rieact to kilur new id dilight ded alburt",
+  tags: ["Dead", "Daylight", "killer", "wesker", "albert"]
+}, {
+  name: "man killed a dude named albert einstein and went do a day break wiskas",
+  tags: ["Dead", "Daylight", "killer", "wesker", "albert"]
+}]  
+
+videos.forEach(video => {
+
+  let videoTitleTags = splitIntoWords(video.name);
+  let videoTags = video.tags;
+
+  //removes similar tags
+  for(let i=0; i < videoTags.length; i++) {
+    for(let j=0; j < videoTitleTags.length; j++) {
+      
+      if(compareStrings(videoTags[i], videoTitleTags[j]) > 0.66) {
+        
+        videoTags.splice(i, 1);
+        i--;
+        break;
+      }
+    }
+  }
+  //console.log(videoTags)
+
+  sumTags = videoTitleTags.concat(videoTags); 
+
+  //calculate compatibility
+  let compatibility = 0
+
+  for(let i=0; i < searchTable.length; i++) {
+    for(let j=0; j < sumTags.length; j++) {
+      if(compareStrings(searchTable[i], sumTags[j]) > 0.5) {
+        compatibility += compareStrings(searchTable[i], sumTags[j]);
+      }
+    }
+  }
+  if(compatibility > 0)
+  console.log(`${video.name}`,` ${compatibility}`)
+
+});
+
+function splitIntoWords(string) {
+  return string.toLowerCase().trim().split(/\s+/);;
+}
+
+function compareStrings(string1, string2) {
+  // Usuwanie wszystkich białych znaków i zamiana na małe litery 
+  let exp1 = compareLength(string1, string2).shorter.replace(/\s/g, '').toLowerCase();
+  let exp2 = compareLength(string1, string2).longer.replace(/\s/g, '').toLowerCase();
+
+  // Sprawdzanie długości wyrażeń
+  let length2 = exp2.length;
+
+  // Liczenie ilości zgodnych znaków
+  let match = 0;
+  let i = 0;
+  for(let i=0; i < length2; i++) {
+    if(exp1[i] === exp2[i]) {
+        match++;
+      } else {
+          exp1 = " " + exp1
+      }
+    }
+
+  // Obliczanie procentowego podobieństwa
+  const compatibility = (match / length2) ;
+
+  return compatibility
+}
+
+function compareLength(string1, string2) {
+  if (string1.length > string2.length) {
+    return { longer: string1, shorter: string2 };
+  } else {
+    return { longer: string2, shorter: string1 };
+  }
+}
