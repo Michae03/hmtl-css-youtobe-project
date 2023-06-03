@@ -1,50 +1,55 @@
-let videoGridHTML = '';
+shuffle(VIDEOS);
 
-shuffle(videos);
+generateYoutubeGrid(VIDEOS)
 
-videos.forEach(video => {
-videoGridHTML += `
-  <div class="video-preview">
-  <div class="thumbnail-container">
-    <a href="${video.link}">
-     <img class="thumbnail" src="images/thumbnails/${video.thumbnailLink}">
-    </a>
-    <div class="video-time">${video.filmLength}</div>
-  </div>
-  <div class="video-info-grid">
-    <div class="channel-picture-container">
-      <img class="channel-picture"
-      src="images/profile-pictures/${video.channel.pictureLink}">
-      <div class="channel-tooltip">
-        <div class="channel-tooltip-img-container">
-          <img src="images/profile-pictures/${video.channel.pictureLink}">
-        </div>
-        <div class="channel-tooltip-info">
-          <div class="channel-tooltip-name">${video.channel.name}</div>
-          <div class="channel-tooltip-sub-count">${roundSubscribers(video.channel.subscribers)} subscribers</div>
-        </div>
-      </div>
-    </div>
-    <div class="video-info">
-      <p class="video-title">
-        ${video.name}
-      </p>
-      <p class="video-author">
-        ${video.channel.name}
-      </p>
-      <p class="video-stats">
-        ${roundSubscribers(video.views)} views &#183; ${roundVideoAge(video.upload)}
-      </p>
-    </div>
-  </div>
-  </div>
-`
-});
-
-document.querySelector('.js-video-grid').innerHTML = videoGridHTML;
 
 
 //DEFINED FUNCTIONS
+
+function generateYoutubeGrid(videos) {
+  let HTML = ""
+  console.log(videos)
+  videos.forEach(video => {
+    HTML += `
+      <div class="video-preview">
+      <div class="thumbnail-container">
+        <a href="${video.link}">
+         <img class="thumbnail" src="images/thumbnails/${video.thumbnailLink}">
+        </a>
+        <div class="video-time">${video.filmLength}</div>
+      </div>
+      <div class="video-info-grid">
+        <div class="channel-picture-container">
+          <img class="channel-picture"
+          src="images/profile-pictures/${video.channel.pictureLink}">
+          <div class="channel-tooltip">
+            <div class="channel-tooltip-img-container">
+              <img src="images/profile-pictures/${video.channel.pictureLink}">
+            </div>
+            <div class="channel-tooltip-info">
+              <div class="channel-tooltip-name">${video.channel.name}</div>
+              <div class="channel-tooltip-sub-count">${roundSubscribers(video.channel.subscribers)} subscribers</div>
+            </div>
+          </div>
+        </div>
+        <div class="video-info">
+          <p class="video-title">
+            ${video.name}
+          </p>
+          <p class="video-author">
+            ${video.channel.name}
+          </p>
+          <p class="video-stats">
+            ${roundSubscribers(video.views)} views &#183; ${roundVideoAge(video.upload)}
+          </p>
+        </div>
+      </div>
+      </div>
+    `
+    });
+
+    document.querySelector('.js-video-grid').innerHTML = HTML;
+}
 
 function roundSubscribers(subscribers) {
     
@@ -63,13 +68,7 @@ function roundSubscribers(subscribers) {
 function roundVideoAge(videoUpload) {
   let now = new Date();
 
-  elapsedTime = //In Seconds
-  (now.getFullYear()-videoUpload.date.year) * 31556926 + 
-  ((now.getMonth()+1)-videoUpload.date.month) * 2629744 + 
-  (now.getDate()-videoUpload.date.day) * 86400 + 
-  (now.getHours()-videoUpload.time.hour) * 3600 + 
-  (now.getMinutes()-videoUpload.time.minute) * 60 +
-  (now.getSeconds()-videoUpload.time.second);
+  elapsedTime = timeElapsed(videoUpload)
 
   const roundDown = (value) => Math.round(value - 0.5);
 
@@ -93,22 +92,20 @@ function roundVideoAge(videoUpload) {
   return `${roundDown(elapsedTime / 31536000)} years ago`;
 }
 
-function shuffle(array) {
-  let currentIndex=array.length,  randomIndex;
+function timeElapsed(videoUpload) {
+  let now = new Date();
 
-  // While there remain elements to shuffle.
-  while (currentIndex != 0) {
+  elapsedTime = //In Seconds
+  (now.getFullYear()-videoUpload.date.year) * 31556926 + 
+  ((now.getMonth()+1)-videoUpload.date.month) * 2629744 + 
+  (now.getDate()-videoUpload.date.day) * 86400 + 
+  (now.getHours()-videoUpload.time.hour) * 3600 + 
+  (now.getMinutes()-videoUpload.time.minute) * 60 +
+  (now.getSeconds()-videoUpload.time.second);
 
-    // Pick a remaining element.
-    randomIndex=Math.floor(Math.random() * currentIndex);
-    currentIndex--;
-
-    // And swap it with the current element.
-    [array[currentIndex], array[randomIndex]]=[
-      array[randomIndex], array[currentIndex]];
-  }
-
-  return array;
+  return elapsedTime
 }
+
+
 
 

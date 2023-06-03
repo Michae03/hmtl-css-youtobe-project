@@ -1,4 +1,4 @@
-const videos = [
+const VIDEOS = [
   {
     id: generateId(),
     name: "Talking Tech and AI with Google CEO Sundar Pichai!",
@@ -17,11 +17,7 @@ const videos = [
         second: 54
       }
     },
-    channel: {
-      name: "Marques Brownlee",
-      subscribers: 15000432,
-      pictureLink: "channel-1.jpeg"
-    },
+    channel: searchById("79zjgx59lnrjibsp2m4j77muub"),
     tags: [
       "technology",
       "ai",
@@ -48,11 +44,7 @@ const videos = [
         second: 11
       }
     },
-    channel: {
-      name: "Markiplier",
-      subscribers: 34954312,
-      pictureLink: "channel-2.jpeg"
-    },
+    channel: searchById("q333a1bswyez5bw727o2aike7r"),
     tags: [
       "funny",
       "laugh",
@@ -80,11 +72,7 @@ const videos = [
         second: 0
       }
     },
-    channel: {
-      name: "SSSniperWolf",
-      subscribers: 33512300,
-      pictureLink: "channel-3.jpeg"
-    },
+    channel: searchById("oyxey2o9a31970j0gmd8pasgcr"),
     tags: [
       "funny",
       "laugh",
@@ -112,18 +100,19 @@ const videos = [
         second: 11
       }
     },
-    channel: {
-      name: "Amy Chickadee",
-      subscribers: 3682,
-      pictureLink: "unnamed.jpg"
-    },
+    channel: searchById("gfglij6zb4morw3q4zmnppuq12"),
     tags: [
       "anime",
       "imagine",
       "dragons",
       "attack",
       "titan",
-      "music"
+      "music", 
+      "song",
+      "aot",
+      "shingeki",
+      "kyojin",
+      "titan"
     ],
     link: "https://www.youtube.com/watch?v=6glSbKvVyUA&t"
   }, {
@@ -144,11 +133,7 @@ const videos = [
         second: 0
       }
     },
-    channel: {
-      name: "Veritasium",
-      subscribers: 13722312,
-      pictureLink: "channel-4.jpeg"
-    },
+    channel: searchById("n6l78ej3nhaxnntfwcx9wsuuuf"),
     tags: [
       "math",
       "problem",
@@ -175,11 +160,7 @@ const videos = [
         second: 0
       }
     },
-    channel: {
-      name: "CS Dojo",
-      subscribers: 1932221,
-      pictureLink: "channel-5.jpeg"
-    },
+    channel: searchById("d8gtrecbo5ktxe3yu3cy03zl6d"),
     tags: [
       "math",
       "problem",
@@ -205,11 +186,7 @@ const videos = [
         second: 2
       }
     },
-    channel: {
-      name: "Dead by Daylight",
-      subscribers: 1000001,
-      pictureLink: "channels4_profile.jpg"
-    },
+    channel: searchById("gb1vgsus0jcrjad5q56y8qn22i"),
     tags: [
       "game",
       "wesker",
@@ -223,7 +200,8 @@ const videos = [
       "rebeca-chambers",
       "racoon",
       "killer",
-      "survivors"
+      "survivors",
+      "dbd"
     ],
     link: "https://www.youtube.com/watch?v=QMEFfoaNX34"
   }, {
@@ -244,11 +222,7 @@ const videos = [
         second: 0
       }
     },
-    channel: {
-      name: "MrBeast",
-      subscribers: 156222012,
-      pictureLink: "channel-6.jpeg"
-    },
+    channel: searchById("p8rmnfqbldmwfzwre8udq7izx5"),
     tags: [
       "money",
       "spent",
@@ -274,16 +248,13 @@ const videos = [
         second: 6
       }
     },
-    channel: {
-      name: "FIFTY FIFTY Official",
-      subscribers: 1170001,
-      pictureLink: "fifty-fifty-profile.jpg"
-    },
+    channel: searchById("ebvt7ezc64m7sxpgbj6n8m0uw1"),
     tags: [
       "kpop",
-      "music",
+      "music", 
+      "song",
       "girls",
-      "music-video",
+      "video",
       "cupid",
       "korean",
       "pop"
@@ -307,11 +278,7 @@ const videos = [
         second: 6
       }
     },
-    channel: {
-      name: "Warner Bros. Pictures",
-      subscribers: 10900001,
-      pictureLink: "wb-profile.jpg"
-    },
+    channel: searchById("9i841oxdwnmlx93lbfqjz6e51s"),
     tags: [
       "trailer",
       "barbie",
@@ -345,13 +312,10 @@ const videos = [
         second: 30
       }
     },
-    channel: {
-      name: "Tame Impala",
-      subscribers: 2340001,
-      pictureLink: "impala-profile.jpg"
-    },
+    channel: searchById("gfl85vmmexvv3vu8gupeauucbs"),
     tags: [
       "music",
+      "song",
       "tame",
       "impala",
       "vocal",
@@ -377,13 +341,10 @@ const videos = [
         second: 1
       }
     },
-    channel: {
-      name: "MAPPA CHANNEL",
-      subscribers: 1290001,
-      pictureLink: "mappa-profile.jpg"
-    },
+    channel: searchById("rwbh5zo9769teo1kn8qkia9rox"),
     tags: [
-      "music",
+      "music", 
+      "song",
       "chainsaw",
       "man",
       "anime",
@@ -392,8 +353,7 @@ const videos = [
       "opening",
       "mappa",
       "kick",
-      "back",
-
+      "back"
     ],
    link:"https://www.youtube.com/watch?v=dFlDRhvM4L0"
   }, {
@@ -414,11 +374,7 @@ const videos = [
         second: 1
       }
     },
-    channel: {
-      name: "8K VIDEOS ULTRA HD",
-      subscribers: 797001,
-      pictureLink: "8k-channel.jpg"
-    },
+    channel: searchById("vso0h43azdkcrzgzkf5e4lu79w"),
     tags: [
       "animals",
       "wild",
@@ -451,11 +407,7 @@ const videos = [
         second: generareTime().second
       }
     },
-    channel: {
-      name: "not Otzdarva",
-      subscribers: 912931,
-      pictureLink: "not_otzdarva_profile.jpg"
-    },
+    channel: searchById("vsidx4mv1r61zrfv103ed15xhs"),
     tags: [
       "texas",
       "chainsaw",
@@ -464,9 +416,330 @@ const videos = [
       "afk",
       "bubba",
       "leatherface",
-      "cook"
+      "cook",
+      "otz"
     ],
    link:"https://www.youtube.com/watch?v=eCm3zicMJ2Y"
+  }, {
+    id: generateId(),
+    name: "This game FEELS like a movie! | Texas Chain Saw Massacre",
+    thumbnailLink: "otzdarva.jpg",
+    filmLength: "23:47",
+    views: 404623,
+    upload: {
+      date: {
+        year: 2023,
+        month: 5,
+        day: 30
+      },
+      time: {
+        hour: generareTime().hour,
+        minute: generareTime().minute,
+        second: generareTime().second
+      }
+    },
+    channel: searchById("vsidx4mv1r61zrfv103ed15xhs"),
+    tags: [
+    "chainsaw",
+    "otz",
+    "massacre",
+    "texas",
+    "dead",
+    "game",
+    "scary",
+    "leatherface",
+    "bubba",
+    "cook",
+    "survivors",
+    "victims",
+    "escape",
+    "house",
+    "otzdarva",
+    "basement",
+    "murder"
+    ],
+   link:"https://www.youtube.com/watch?v=lWxAz4KKWT4"
+  }, {
+    id: generateId(),
+    name: "Otz's Killer Tier List (6.7.0) | Dead by Daylight",
+    thumbnailLink: "skull-merchant.jpg",
+    filmLength: "2:33:54",
+    views: 531054,
+    upload: {
+      date: {
+        year: 2023,
+        month: 5,
+        day: 12
+      },
+      time: {
+        hour: generareTime().hour,
+        minute: generareTime().minute,
+        second: generareTime().second
+      }
+    },
+    channel: searchById("vsidx4mv1r61zrfv103ed15xhs"),
+    tags: [
+    "skull",
+    "otz",
+    "merchant",
+    "killers",
+    "dead",
+    "game",
+    "tier",
+    "list",
+    "opinion",
+    "daylight",
+    "survivors",
+    "nurse",
+    "escape",
+    "huntress",
+    "otzdarva",
+    "patch",
+    "blight",
+    "killer",
+    "dbd"
+    ],
+   link:"https://www.youtube.com/watch?v=LJSjlGcjc78&t"
+  }, {
+    id: generateId(),
+    name: `The "Brute Force" Ghostface Build | Dead by Daylight`,
+    thumbnailLink: "ghostie.jpg",
+    filmLength: "14:39",
+    views: 357252,
+    upload: {
+      date: {
+        year: 2022,
+        month: 12,
+        day: 27
+      },
+      time: {
+        hour: generareTime().hour,
+        minute: generareTime().minute,
+        second: generareTime().second
+      }
+    },
+    channel: searchById("vsidx4mv1r61zrfv103ed15xhs"),
+    tags: [
+    "ghostface",
+    "otz",
+    "build",
+    "killers",
+    "dead",
+    "game",
+    "perks",
+    "eruption",
+    "addon",
+    "daylight",
+    "survivors",
+    "scream",
+    "escape",
+    "macmillan",
+    "otzdarva",
+    "killer",
+    "dbd"
+    ],
+   link:"https://www.youtube.com/watch?v=ZXMcb-PM_TE"
+  }, {
+    id: generateId(),
+    name: "40 minutes of TENSE solo Survivor games",
+    thumbnailLink: "survivor.jpg",
+    filmLength: "41:22",
+    views: 389351,
+    upload: {
+      date: {
+        year: 2023,
+        month: 4,
+        day: 19
+      },
+      time: {
+        hour: generareTime().hour,
+        minute: generareTime().minute,
+        second: generareTime().second
+      }
+    },
+    channel: searchById("vsidx4mv1r61zrfv103ed15xhs"),
+    tags: [
+    "trap",
+    "otz",
+    "build",
+    "killers",
+    "dead",
+    "game",
+    "perks",
+    "pig",
+    "daylight",
+    "survivors",
+    "generators",
+    "escape",
+    "pallets",
+    "otzdarva",
+    "killer",
+    "tense",
+    "solo",
+    "dbd"
+    ],
+   link:"https://www.youtube.com/watch?v=i1tcnKI-5KY&t"
+  }, {
+    id: generateId(),
+    name: "Try Not To Laugh Challenge #24",
+    thumbnailLink: "markiplier.jpg",
+    filmLength: "10:37",
+    views: 13418735,
+    upload: {
+      date: {
+        year: 2021,
+        month: 9,
+        day: 24
+      },
+      time: {
+        hour: generareTime().hour,
+        minute: generareTime().minute,
+        second: generareTime().second
+      }
+    },
+    channel: searchById("q333a1bswyez5bw727o2aike7r"),
+    tags: [
+    "laugh",
+    "challenge",
+    "funny",
+    "hilarious",
+    "mark",
+    "edward",
+    "fischbach",
+    "youtuber",
+    "tiktok",
+    ],
+   link:"https://www.youtube.com/watch?v=8w7chA9Wnuw"
+  }, {
+    id: generateId(),
+    name: "NARUTO SHIPPUDEN OP 16 but its LEAGUE OF LEGENDS | Silhouette",
+    thumbnailLink: "dsafaf.jpg",
+    filmLength: "1:41",
+    views: 171313,
+    upload: {
+      date: {
+        year: 2023,
+        month: 3,
+        day: 20
+      },
+      time: {
+        hour: generareTime().hour,
+        minute: generareTime().minute,
+        second: generareTime().second
+      }
+    },
+    channel: searchById("jkfds32kfjdsajfas3ak2k221s"),
+    tags: [
+      "anime",
+      "lol",
+      "league",
+      "legends",
+      "gwen",
+      "akshan",
+      "viego",
+      "ruination",
+      "opening",
+      "naruto",
+      "lucian",
+      "senna",
+      "music"
+    ],
+   link:"https://www.youtube.com/watch?v=GNhq738kPsE"
+  }, {
+    id: generateId(),
+    name: "DEMON SLAYER OP but its LEAGUE OF LEGENDS | Zankyou Sanka",
+    thumbnailLink: "hqdefault.jpg",
+    filmLength: "1:49",
+    views: 3058524,
+    upload: {
+      date: {
+        year: 2022,
+        month: 5,
+        day: 4
+      },
+      time: {
+        hour: generareTime().hour,
+        minute: generareTime().minute,
+        second: generareTime().second
+      }
+    },
+    channel: searchById("jkfds32kfjdsajfas3ak2k221s"),
+    tags: [
+      "demon",
+      "slayer",
+      "opening",
+      "anime",
+      "league",
+      "legends",
+      "sett",
+      "master",
+      "yi",
+      "olaf",
+      "tanjiro",
+      "nezuko",
+      "tengen",
+      "music",
+      "lol"
+    ],
+   link:"https://www.youtube.com/watch?v=6UMdDHpOKEo"
+  }, {
+    id: generateId(),
+    name: "Why NO ONE Plays: Urgot | League of Legends",
+    thumbnailLink: "wnopu.jpg",
+    filmLength: "13:53",
+    views: 155986,
+    upload: {
+      date: {
+        year: 2023,
+        month: 4,
+        day: 10
+      },
+      time: {
+        hour: generareTime().hour,
+        minute: generareTime().minute,
+        second: generareTime().second
+      }
+    },
+    channel: searchById("hg56436dfgas1safddfds3aa1b"),
+    tags: [
+      "urgot",
+      "league",
+      "legends",
+      "lol",
+      "zaun",
+      "champion",
+      "rework"
+    ],
+   link:"https://www.youtube.com/watch?v=1Lcwk8ZuM0Y"
+  }, {
+    id: generateId(),
+    name: "Why NO ONE Plays: Malzahar | League of Legends",
+    thumbnailLink: "wnopm.jpg",
+    filmLength: "13:56",
+    views: 297087,
+    upload: {
+      date: {
+        year: 2021,
+        month: 3,
+        day: 14
+      },
+      time: {
+        hour: generareTime().hour,
+        minute: generareTime().minute,
+        second: generareTime().second
+      }
+    },
+    channel: searchById("hg56436dfgas1safddfds3aa1b"),
+    tags: [
+      "malzahar",
+      "league",
+      "legends",
+      "lol",
+      "void",
+      "champion",
+      "rework"
+    ],
+   link:""
   }
 ]
 //TEMPLATE
@@ -489,11 +762,7 @@ const videos = [
         second: generareTime().second
       }
     },
-    channel: {
-      name: "",
-      subscribers: ,
-      pictureLink: ""
-    },
+    channel: searchById(""),
     tags: [
       
     ],
@@ -501,23 +770,7 @@ const videos = [
   }
 */
 
-
-function generateId() {
-  let id = '';
-  let characters = '0123456789abcdefghijklmnopqrstuvwxyz';
-  
-  for (let i = 0; i < 26; i++) {
-    let randomIndex = Math.floor(Math.random() * characters.length);
-    id += characters.charAt(randomIndex);
-  }
-  
-  return id;
+function searchById(id) {
+  return CHANNELS.filter(channel => channel.id === id)[0];
 }
 
-function generareTime() {
-  return {
-    second: Math.floor(Math.random() * (61)),
-    minute: Math.floor(Math.random() * (61)),
-    hour:   Math.floor(Math.random() * (24))
-  }
-}

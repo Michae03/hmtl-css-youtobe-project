@@ -1,50 +1,85 @@
-searchBar = "music";
-searchTable = splitIntoWords(searchBar);
+
+const searchButton = document.querySelector(".js-search-button");
+const searchBar = document.querySelector(".js-search-bar");
+
+searchButton.addEventListener('click', ()=>{
+  generateYoutubeGrid(searchForVideos(searchBar.value))
+})
 
 
-const videosEX = [{
-  name: "Otzdurva rieact to kilur new id dilight ded alburt",
-  tags: ["Dead", "Daylight", "killer", "wesker", "albert"]
-}, {
-  name: "man killed a dude named albert einstein and went do a day break wiskas",
-  tags: ["Dead", "Daylight", "killer", "wesker", "albert"]
-}]  
+searchBar.addEventListener('keydown', (event) =>{
+  if (event.keyCode === 13) {
+    generateYoutubeGrid(searchForVideos(searchBar.value))
+  }
+} )
 
-videos.forEach(video => {
 
-  let videoTitleTags = splitIntoWords(video.name);
-  let videoTags = video.tags;
 
-  //removes similar tags
-  for(let i=0; i < videoTags.length; i++) {
-    for(let j=0; j < videoTitleTags.length; j++) {
+//DEFINED FUNCTIONS
+
+
+function searchForVideos(searchBarQuery) {
+ 
+  searchTable = splitIntoWords(searchBarQuery);
+
+  const compatibleVideos = []
+
+  VIDEOS.forEach(video => {
+
+    let videoTitleTags = splitIntoWords(video.name);
+    let videoTags = video.tags;
+  
+    removeSimilarTags(videoTitleTags, videoTags)
+    
+   
+    //calculate compatibility
+    let compatibility = 0
+    //Adjust if needed
+    let channelNameMultiplicator = 1.5;
+    let tagsMultiplicator = 0.7;
+    let titleMultiplicator = 1;
+    
+    
+    for(let i=0; i < searchTable.length; i++) {
+      //calculating from video name
+      for(let j=0; j < videoTags.length; j++) {
+        if(compareStrings(searchTable[i], videoTags[j]) > 0.5) {
+          compatibility += compareStrings(searchTable[i], videoTags[j]) * tagsMultiplicator;
+        }
+      }
+      //calculating from video title
+      for(let j=0; j < videoTitleTags.length; j++) {
+        if(compareStrings(searchTable[i], videoTitleTags[j]) > 0.5) {
+          compatibility += compareStrings(searchTable[i], videoTitleTags[j]) * titleMultiplicator;
+        }
+      }
+      //calculating from channel name
+      if(compareStrings(searchTable[i], video.channel.name) > 0.5) {
+        compatibility += compareStrings(searchTable[i], video.channel.name) * channelNameMultiplicator;
+      }
+    }
+
+    
+    if(compatibility > 0){
+      const newVideo = video;
+      newVideo.compatibility = (Math.floor(compatibility*100))/100;
+      compatibleVideos.push(newVideo)
       
-      if(compareStrings(videoTags[i], videoTitleTags[j]) > 0.66) {
-        
-        videoTags.splice(i, 1);
-        i--;
-        break;
-      }
     }
+  
+  
+  });
+
+  reduceUncompatibileVideos(compatibleVideos, 0.5)
+  const compatibleVideosSorted = quicksort(compatibleVideos);
+  compatibleVideosSorted.reverse();
+
+  for(let i=0; i < compatibleVideosSorted.length; i++) {
+    console.log(`${compatibleVideosSorted[i].name}: ${compatibleVideosSorted[i].compatibility}`)
   }
-  //console.log(videoTags)
 
-  sumTags = videoTitleTags.concat(videoTags); 
-
-  //calculate compatibility
-  let compatibility = 0
-
-  for(let i=0; i < searchTable.length; i++) {
-    for(let j=0; j < sumTags.length; j++) {
-      if(compareStrings(searchTable[i], sumTags[j]) > 0.5) {
-        compatibility += compareStrings(searchTable[i], sumTags[j]);
-      }
-    }
-  }
-  if(compatibility > 0)
-  console.log(`${video.name}`,` ${compatibility}`)
-
-});
+  return compatibleVideosSorted
+}
 
 function splitIntoWords(string) {
   return string.toLowerCase().trim().split(/\s+/);;
@@ -80,5 +115,61 @@ function compareLength(string1, string2) {
     return { longer: string1, shorter: string2 };
   } else {
     return { longer: string2, shorter: string1 };
+  }
+}
+
+function reduceUncompatibileVideos(compatibleVideos, compValue) {
+  biggestCompatibility = 0;
+  for(let i = 0; i < compatibleVideos.length; i++) {
+    if(compatibleVideos[i].compatibility > biggestCompatibility) {
+      biggestCompatibility = compatibleVideos[i].compatibility
+    }
+  }
+  for(let i = 0; i < compatibleVideos.length; i++) {
+    if(compatibleVideos[i].compatibility < biggestCompatibility * compValue) {
+      compatibleVideos.splice(i, 1);
+      i--
+    }
+  }
+}
+
+function removeSimilarTags(videoTitleTags, videoTags) {
+  for(let i=0; i < videoTags.length; i++) {
+    for(let j=0; j < videoTitleTags.length; j++) {
+      
+      if(compareStrings(videoTags[i], videoTitleTags[j]) > 0.66) {
+        
+        videoTags.splice(i, 1);
+        i--;
+        break;
+      }
+    }
+  }
+}
+function quicksort(array) {
+  if (array.length <= 1) {
+    return array;
+  } else {
+    const pivot = array[0];
+    const less = [];
+    const greater = [];
+
+    for (let i = 1; i < array.length; i++) {
+      if (array[i].compatibility < pivot.compatibility) {
+        less.push(array[i]);
+      }
+      if (array[i].compatibility === pivot.compatibility) {
+        if (timeElapsed(array[i].upload) <= timeElapsed(pivot.upload)) {
+          greater.push(array[i]);
+        } else {
+          less.push(array[i]);
+        }
+      }
+      if (array[i].compatibility > pivot.compatibility) {
+        greater.push(array[i]);
+      }
+    }
+
+    return [...quicksort(less), pivot, ...quicksort(greater)];
   }
 }
